@@ -3,6 +3,8 @@
 
 NeuRIC is built on top of **LLaMA-Factory** (for SFT / LoRA / QLoRA training) and **Easy R1** (for reasoning- and R1-style training workflows). By primarily modifying **dataset definition files**, NeuRIC allows medical data to be adapted to existing training infrastructures in a clean, reproducible, and maintainable manner.
 
+In parallel, we are actively developing a web-based platform that enables users to directly upload medical data and experiment with model inference and reasoning workflows through an interactive interface (early access: [http://www.neuric.cn](http://www.neuric.cn:5000/)).
+
 The repository provides:
 - Minimal and reproducible **patch files** for upstream frameworks  
 - **configuration files** for training  
@@ -14,8 +16,8 @@ The repository provides:
 ```
 NeuRIC/
 ├── patches/
-│   ├── llamafactory_load_data.patch
-│   └── easy_r1_load_data.patch
+│   ├── stage1_2_datasets_patch.py
+│   └── stage3_datasets_patch.py
 ├── configs/
 │   ├── stage1.yaml
 │   ├── stage2.yaml
@@ -27,8 +29,9 @@ NeuRIC/
 
 ## Requirements
 
-- Python >= 3.11  
-- PyTorch (CUDA version matched to your environment)  
+- **Python >= 3.11**
+- **PyTorch 2.6.0**
+- **CUDA 12.4** (runtime & developer components)
 
 ---
 
@@ -44,25 +47,37 @@ git clone <Easy-R1-repo> third_party/easy-r1
 ### 2. Apply Patches
 
 ```bash
-cd third_party/LLaMA-Factory
-git apply ../../patches/llamafactory.patch
-
-cd ../easy-r1
-git apply ../../patches/easy-r1.patch
+cp ./patches/stage1_2_datasets_patch.py third_party/LLaMA-Factory/src/llamafactory/data/mm_plugin.py
+cp ./patches/stage3_datasets_patch.py third_party/easy-r1/verl/utils/dataset.py
 ```
 
 ---
 
 ## Training
 
-### Supervised Fine-Tuning
+```bash
+bash scripts/stage1.sh 
+```
 
 ```bash
-bash scripts/train_sft.sh configs/sft_med.yaml
+bash scripts/stage2.sh 
 ```
 
 ### Reasoning / R1-style Training
 
 ```bash
-bash scripts/train_r1.sh configs/r1_med.yaml
+bash scripts/stage3.sh
 ```
+
+## Acknowledgements
+
+We would like to thank the authors and contributors of the following open-source projects,
+which have greatly inspired and supported the development of **NeuRIC**:
+
+- **EasyR1**  
+  https://github.com/hiyouga/EasyR1  
+  For its clean and extensible implementation of reinforcement learning and training pipelines.
+
+- **LLaMAFactory**  
+  https://github.com/hiyouga/LLaMAFactory  
+  For providing a comprehensive and practical framework for MLLM fine-tuning and alignment.
