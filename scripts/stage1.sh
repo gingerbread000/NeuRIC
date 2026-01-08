@@ -1,0 +1,1 @@
+llamafactory-cli train ../configs/stage1.yaml

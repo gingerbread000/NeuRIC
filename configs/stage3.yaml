@@ -1,6 +1,6 @@
 data:
-  train_files: /reasoning_dataset.json
-  val_files: /val_dataset.json
+  train_files: /path/to/reasoning_dataset.json
+  val_files: /path/to/val_dataset.json
   prompt_key: problem
   answer_key: answer
   video_key: videos
