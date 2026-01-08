@@ -1,0 +1,52 @@
+### model
+model_name_or_path: /model_weights_to_stage1/
+image_max_pixels: 46214400
+video_max_pixels: 46384000
+trust_remote_code: true
+
+### method
+stage: sft
+do_train: true
+finetuning_type: lora
+lora_rank: 32
+lora_target: all
+freeze_vision_tower: true
+freeze_multi_modal_projector: true
+freeze_language_model: false
+
+### dataset
+dataset: reasoning_dataset
+template: qwen2_vl
+cutoff_len: 4096000
+max_samples: 200000
+overwrite_cache: true
+preprocessing_num_workers: 8
+dataloader_num_workers: 4
+# deepspeed: examples/deepspeed/ds_z3_config.json
+tokenized_path: /path/to/cache/dataset/reasoning_dataset
+
+### output
+output_dir: saves/stage2
+save_steps: 200
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: false
+save_total_limit: 3 
+report_to: tensorboard  # choices: [none, wandb, tensorboard, swanlab, mlflow]
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 8
+learning_rate: 1.0e-4
+num_train_epochs: 1.0
+lr_scheduler_type: cosine
+warmup_ratio: 0.1
+bf16: true
+ddp_timeout: 180000000
+resume_from_checkpoint: null
+
+## eval
+val_size: 0.005
+per_device_eval_batch_size: 1
+eval_strategy: steps
+eval_steps: 200

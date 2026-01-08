@@ -14,11 +14,12 @@ The repository provides:
 ```
 NeuRIC/
 ├── patches/
-│   ├── llamafactory.patch
-│   └── easy-r1.patch
+│   ├── llamafactory_load_data.patch
+│   └── easy_r1_load_data.patch
 ├── configs/
-│   ├── sft_med.yaml
-│   └── r1_med.yaml
+│   ├── stage1.yaml
+│   ├── stage2.yaml
+│   └── stage3.yaml
 └── README.md
 ```
 
