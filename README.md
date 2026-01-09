@@ -3,7 +3,7 @@
 
 NeuRIC is built on top of **LLaMA-Factory** (for SFT / LoRA / QLoRA training) and **Easy R1** (for reasoning- and R1-style training workflows). By primarily modifying **dataset definition files**, NeuRIC allows medical data to be adapted to existing training infrastructures in a clean, reproducible, and maintainable manner.
 
-In parallel, we are actively developing a web-based platform that enables users to directly upload medical data and experiment with model inference and reasoning workflows through an interactive interface (early access: [http://www.neuric.cn](http://www.neuric.cn:5000/)).
+In parallel, we are actively developing a web-based platform that enables users to directly upload medical data and experiment with model inference and reasoning workflows through an interactive interface (early access: [https://www.neuric.cn](https://www.neuric.cn:5000/)).
 
 The repository provides:
 - Minimal and reproducible **patch files** for upstream frameworks  
@@ -78,6 +78,6 @@ which have greatly inspired and supported the development of **NeuRIC**:
   https://github.com/hiyouga/EasyR1  
   For its clean and extensible implementation of reinforcement learning and training pipelines.
 
-- **LLaMAFactory**  
+- **LLaMAFactory**
   https://github.com/hiyouga/LLaMAFactory  
   For providing a comprehensive and practical framework for MLLM fine-tuning and alignment.
