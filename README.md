@@ -26,6 +26,7 @@ NeuRIC/
 ├── configs/
 │   ├── stage1.yaml
 │   ├── stage2.yaml
+│   ├── stage2_merge.yaml
 │   └── stage3.yaml
 ├── requirements/
 │   ├── llamafactory_requirements.txt
@@ -144,6 +145,8 @@ llamafactory-cli train examples/stage2.yaml
 ```
 
 After Stage 2 training, the LoRA weights need to be merged into the base model to obtain a standalone checkpoint for downstream reasoning optimization.
+
+Required: Set the model path variable `model_name_or_path` and `adapter_name_or_path` in `stage2_merge.yaml` to point to the Stage 1 and Stage 2 checkpoints respectively
 ```bash
 cp ./configs/stage2_merge.yaml ./LLaMA-Factory/examples
 llamafactory-cli export examples/stage2_merge.yaml
