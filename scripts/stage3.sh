@@ -12,7 +12,7 @@ RUN_NAME="stage3_$(date +%Y-%m-%d_%H-%M-%S)"
 export LOG_PATH="./logs/$RUN_NAME.txt"
 
 python3 -m verl.trainer.main \
-    config=examples/config_med.yaml \
+    config=examples/stage3.yaml \
     data.train_files=/path/to/reasoning_dataset.json \
     data.val_files=/path/to/val_dataset.json \
     worker.actor.model.model_path=${MODEL_PATH} \

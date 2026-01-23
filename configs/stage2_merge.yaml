@@ -1,0 +1,13 @@
+### Note: DO NOT use quantized model or quantization_bit when merging lora adapters
+
+### model
+model_name_or_path: /path/to/model_weights_of_stage1
+adapter_name_or_path: /path/to/model_weights_of_stage2
+template: qwen2_vl
+trust_remote_code: true
+
+### export
+export_dir: output/merge_model_of_stage2
+export_size: 4
+export_device: cpu
+export_legacy_format: false
