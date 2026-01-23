@@ -1,9 +1,9 @@
 # NeuRIC
 
 
-NeuRIC is built on top of **LLaMA-Factory** (for SFT / LoRA / QLoRA training) and **Easy R1** (for reasoning- and R1-style training workflows). By primarily modifying **dataset definition files**, NeuRIC allows medical data to be adapted to existing training infrastructures in a clean, reproducible, and maintainable manner.
+NeuRIC is built on top of **LlamaFactory** (for SFT / LoRA / QLoRA training) and **Easy R1** (for reasoning- and R1-style training workflows). By primarily modifying **dataset definition files**, NeuRIC allows medical data to be adapted to existing training infrastructures in a clean, reproducible, and maintainable manner.
 
-In parallel, we are actively developing a web-based platform that enables users to directly upload medical data and experiment with model inference and reasoning workflows through an interactive interface (early access: [https://www.neuric.cn](https://www.neuric.cn:5000/)).
+In parallel, we are actively developing a web-based platform that enables users to directly upload medical data and experiment with model inference and reasoning workflows through an interactive interface (early access: [https://www.neuric.cn](https://www.neuric.cn)).
 
 The repository provides:
 - Minimal and reproducible patch files for upstream frameworks  
@@ -18,7 +18,7 @@ The repository provides:
 ```
 NeuRIC/
 ├── sources/
-│   ├── LLaMA-Factory/
+│   ├── LlamaFactory/
 │   └── EASYR1/
 ├── patches/
 │   ├── stage1_2_datasets_patch.py
@@ -46,18 +46,14 @@ NeuRIC/
 
 ## Installation
 
-NeuRIC relies on two upstream training frameworks—**LLaMA-Factory** and **Easy R1**—which are used in different stages of the training and inference pipeline.
+NeuRIC relies on two upstream training frameworks—**LlamaFactory** and **Easy R1**—which are used in different stages of the training and inference pipeline.
 To ensure compatibility with their respective dependencies, two separate Python environments are required and should be installed independently.
 
 | Stage     | Purpose                                  | Framework     | Environment |
 | --------- | ---------------------------------------- | ------------- | ----------- |
-| Stage 1–2 | Supervised fine-tuning (SFT)             | LLaMA-Factory | `llama_factory`        |
+| Stage 1–2 | Supervised fine-tuning (SFT)             | LlamaFactory | `llama_factory`        |
 | Stage 3   | Reasoning optimization (GRPO / R1-style) | Easy R1       | `easyr1`    |
 
-The same environment separation applies to inference:
-- SFT models are evaluated in the LLaMA-Factory environment
-
-- Final NeuRIC models are evaluated in the Easy R1 environment
 
 ---
 ### 1. Clone Repositories and Prepare Upstream Frameworks
@@ -65,7 +61,7 @@ The same environment separation applies to inference:
 git clone <NeuRIC-repo>
 cd NeuRIC
 
-git clone <LLaMA-Factory-repo> ./LLaMA-Factory
+git clone <LlamaFactory-repo> ./LlamaFactory
 git clone <Easy-R1-repo> ./EasyR1
 ```
 
@@ -79,7 +75,7 @@ We provide two requirement files corresponding to the two environments used in o
 - `requirements/llamafactory_requirements.txt`
 - `requirements/easyr1_requirements.txt`
 
-#### LLaMA-Factory Environment
+#### LlamaFactory Environment
 
 ```bash
 conda create -n llama_factory python=3.11 -y
@@ -105,7 +101,7 @@ This is particularly relevant for CUDA-related dependencies such as FlashAttenti
 NeuRIC adapts dataset handling through minimal patch files applied to the upstream frameworks.
 ```bash
 # For Stage 1-2
-cp ./patches/stage1_2_datasets_patch.py ./LLaMA-Factory/src/llamafactory/data/mm_plugin.py
+cp ./patches/stage1_2_datasets_patch.py ./LlamaFactory/src/llamafactory/data/mm_plugin.py
 
 # For Stage 3
 cp ./patches/stage3_datasets_patch.py ./EasyR1/verl/utils/dataset.py
@@ -126,8 +122,8 @@ NeuRIC follows a three-stage training framework:
 #### Stage 1: Supervised Fine-Tuning for Visual–Textual Alignment
 
 ```bash
-cp ./configs/stage1.yaml ./LLaMA-Factory/examples
-cd LLaMA-Factory
+cp ./configs/stage1.yaml ./LlamaFactory/examples
+cd LlamaFactory
 llamafactory-cli train examples/stage1.yaml
 ```
 
@@ -139,8 +135,8 @@ Before running Stage 2, set `model_name_or_path` in `stage2.yaml` to the output 
 Stage 2 is conducted using LoRA-based fine-tuning to efficiently adapt the model for multimodal reasoning.
 
 ```bash
-cp ./configs/stage2.yaml ./LLaMA-Factory/examples
-cd LLaMA-Factory
+cp ./configs/stage2.yaml ./LlamaFactory/examples
+cd LlamaFactory
 llamafactory-cli train examples/stage2.yaml
 ```
 
@@ -148,7 +144,7 @@ After Stage 2 training, the LoRA weights need to be merged into the base model t
 
 Required: Set the model path variable `model_name_or_path` and `adapter_name_or_path` in `stage2_merge.yaml` to point to the Stage 1 and Stage 2 checkpoints respectively
 ```bash
-cp ./configs/stage2_merge.yaml ./LLaMA-Factory/examples
+cp ./configs/stage2_merge.yaml ./LlamaFactory/examples
 llamafactory-cli export examples/stage2_merge.yaml
 ```
 The merged checkpoint will be used as the initialization model for Stage 3.
@@ -188,7 +184,7 @@ bash examples/evaluate.sh
 ---
 
 ## Acknowledgements
-
+g't
 We would like to thank the authors and contributors of the following open-source projects,
 which have greatly inspired and supported the development of **NeuRIC**:
 
