@@ -19,7 +19,7 @@ The repository provides:
 NeuRIC/
 ├── sources/
 │   ├── LlamaFactory/
-│   └── EASYR1/
+│   └── EasyR1/
 ├── patches/
 │   ├── stage1_2_datasets_patch.py
 │   └── stage3_datasets_patch.py
@@ -59,7 +59,7 @@ To ensure compatibility with their respective dependencies, two separate Python 
 ### 1. Clone Repositories and Prepare Upstream Frameworks
 ```bash
 git clone <NeuRIC-repo>
-cd NeuRIC
+cd sources
 
 git clone <LlamaFactory-repo> ./LlamaFactory
 git clone <Easy-R1-repo> ./EasyR1
